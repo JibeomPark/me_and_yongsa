@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public GameObject DamageText;           // Damage Text manager 가져옴
     public bool isPlayerUnitChanged = false;
     public bool isEnemyUnitChanged = false;
+
+    private GameObject Canvas;
     void Start()
     {
         playerAttackCool = player.GetComponent<PlayerUnitManager>().PlayerUnit.GetComponent<Status>().AS;
@@ -16,6 +19,8 @@ public class BattleManager : MonoBehaviour
         // 플레이어 유닛과 상대 유닛의 공격속도(공격 쿨타임)을 가져옴.
         StartCoroutine("PlayerAttack");
         StartCoroutine("EnemyAttack");
+        Canvas = GameObject.FindWithTag("Canvas");
+
     }
 
     // Update is called once per frame
@@ -62,6 +67,9 @@ public class BattleManager : MonoBehaviour
                 {
                     StopCoroutine("PlayerAttack");
                     StopCoroutine("EnemyAttack");
+                    Canvas.transform.GetChild(4).gameObject.SetActive(true);
+                    Canvas.transform.GetChild(4).GetChild(1).gameObject.GetComponent<Text>().text = "승리";
+                    Canvas.transform.GetChild(4).GetChild(2).gameObject.SetActive(true);
                 }
             }
             yield return new WaitForSeconds(playerAttackCool);
@@ -82,6 +90,9 @@ public class BattleManager : MonoBehaviour
             {
                 StopCoroutine("PlayerAttack");
                 StopCoroutine("EnemyAttack");
+                Canvas.transform.GetChild(4).gameObject.SetActive(true);
+                Canvas.transform.GetChild(4).GetChild(1).gameObject.GetComponent<Text>().text = "패배";
+                Canvas.transform.GetChild(4).GetChild(3).gameObject.SetActive(true);
             }
             yield return new WaitForSeconds(enemyAttackCool);
         }
