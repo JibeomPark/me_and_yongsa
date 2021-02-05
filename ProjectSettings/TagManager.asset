@@ -6,6 +6,11 @@ TagManager:
   tags:
   - BGM
   - Canvas
+  - Enemy
+  - FloatingText
+  - PassiveSkillBtn
+  - ActiveSkillBtn
+  - UltSkillBtn
   layers:
   - Default
   - TransparentFX
@@ -15,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Unit
   - 
   - 
   - 

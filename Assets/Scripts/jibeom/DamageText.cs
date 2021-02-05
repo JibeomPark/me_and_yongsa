@@ -6,7 +6,6 @@ public class DamageText : MonoBehaviour
 {
     private float moveSpeed;
     private float alphaSpeed;
-    private float destroyTime;
     Text text;
     Color alpha;
     public int damage;
@@ -16,19 +15,19 @@ public class DamageText : MonoBehaviour
     {
         moveSpeed = 2.0f;
         alphaSpeed = 2.0f;
-        destroyTime = 2.0f;
 
         text = GetComponent<Text>();
         alpha = text.color;
         text.text = damage.ToString();
-        Invoke("DestroyObject", destroyTime);
+        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
+        Invoke("DestroyObject", 2.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0)); // 텍스트 위치
-
+        transform.GetComponent<RectTransform>().anchoredPosition  = new Vector3(0, moveSpeed * Time.deltaTime, 0); // 텍스트 위치
+        transform.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
         alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed); // 텍스트 알파값
         text.color = alpha;
     }
